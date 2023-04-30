@@ -19,10 +19,33 @@ exports.notifyOwner = async (questionId, answerDescription) => {
 
     const subject = "Your question has been answered!";
     const html = `
-		<h1>Your question has been answered!</h1>
-		<p>Question: ${questionTitle}</p>
-		<p>Question Description: ${questionDescription}</p>
-		<p>Answer: ${answerDescription}</p>
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Question Answered</title>
+        </head>
+        <body style="background-color: #f7f7f7; font-family: Arial, sans-serif;">
+            <header style="background-color: #0066cc; color: #fff; padding: 1rem;">
+                <h1 style="font-size: 1.5rem; margin: 0;">Your question has been answered!</h1>
+            </header>
+            <main style="max-width: 600px; margin: 0 auto; padding: 1rem;">
+                <section style="margin-bottom: 2rem;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Question</h2>
+                    <p style="margin: 0;">${questionTitle}</p>
+                </section>
+                <section style="margin-bottom: 2rem;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Question Description</h2>
+                    <p style="margin: 0;">${questionDescription}</p>
+                </section>
+                <section>
+                    <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Answer</h2>
+                    <p style="margin: 0;">${answerDescription}</p>
+                </section>
+            </main>
+        </body>
+    </html>
 	`;
 
     sendEmail(emailToSend, subject, html);
