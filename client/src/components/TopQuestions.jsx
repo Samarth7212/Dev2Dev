@@ -1,14 +1,13 @@
-import React, { useState, useEffect, lazy } from "react";
-import { authCheck, config } from "../AuthChecker";
-import { getQuestionsUrl } from "../constants/urls";
 import Axios from "axios";
-import Select from "react-select";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
-import arrrowUp from "../assets/up-arrow.png";
-import arrrowDown from "../assets/down-arrow.png";
-import QuestionPageSwitcher from "./QuestionPageSwitcher";
+import Select from "react-select";
 import { toast } from "react-toastify";
+import { authCheck } from "../AuthChecker";
+import arrrowDown from "../assets/down-arrow.png";
+import arrrowUp from "../assets/up-arrow.png";
+import { getQuestionsUrl } from "../constants/urls";
+import QuestionPageSwitcher from "./QuestionPageSwitcher";
 
 const fetchTopQuestions = async (option, page) => {
   let response = await fetch(
@@ -35,6 +34,19 @@ const TopQuestions = () => {
 
   const defaultValue = options[0];
   const [selectedOption, setSelectedOption] = useState(defaultValue);
+
+  const [tagList, setTagList] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleAddTag = () => {
+    if (inputValue === "") return;
+    setTagList([...tagList, inputValue]);
+    setInputValue("");
+  };
+
+  const removeTag = (tag) => {
+    setTagList(tagList.filter((t) => t !== tag));
+  };
 
   useEffect(() => {
     fetchTopQuestions(selectedOption["value"], currentPage).then((data) => {
@@ -82,6 +94,7 @@ const TopQuestions = () => {
       {
         title: title,
         description: description,
+        tag: tagList,
       },
       config
     ).then((response) => {
@@ -91,8 +104,7 @@ const TopQuestions = () => {
       //setPostQuestion(false);
       toast.success("Question posted successfully");
 
-      setTitle("");
-      setDescription("");
+      setPostQuestion(false);
     });
   }
 
@@ -122,7 +134,7 @@ const TopQuestions = () => {
                 Cancel
               </button>
             </div>
-            <div className="flex flex-col mx-auto w-full border-[1px] p-8 rounded-xl shadow-lg">
+            <div className="flex flex-col mx-auto w-full border-[1px] p-8 rounded-xl shadow-lg mb-2">
               <div className="flex flex-col mb-4 align-start justify-start items-start ">
                 <label
                   className="mb-1 font-normal text-xl text-[#144272] rounded "
@@ -160,6 +172,50 @@ const TopQuestions = () => {
                   }}
                 ></textarea>
               </div>
+              <div className="flex flex-col mb-4 align-start justify-start items-start ">
+                <div className="inline-flex items-center justify-center mb-2">
+                  <div className="mb-1 font-normal text-xl text-center h-full  p-[0.35rem] text-[#144272] rounded mr-2">
+                    Tags
+                  </div>
+                  <div className="w-full inline-flex space-x-2">
+                    {tagList.map((tag) => (
+                      <div
+                        key={tag}
+                        className="flex items-center justify-center rounded-lg p-[0.35rem] px-2 h-fit w-fit text-[#215e93] bg-[#c8dff5]"
+                      >
+                        {tag}
+                        <button
+                          className="ml-3"
+                          onClick={() => {
+                            removeTag(tag);
+                          }}
+                        >
+                          {" "}
+                          ✕{" "}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="inline-flex w-full space-x-3">
+                  <input
+                    className="border py-2 px-3 text-grey-800 w-full rounded"
+                    type="text"
+                    name="tag"
+                    id="tag"
+                    placeholder="Add a tag"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                  />
+                  <button
+                    className="bg-[#144272] hover:bg-[#2C74B3] text-white  text-[2rem] px-4 text-center items-center justify-center rounded-xl h-fit w-fit"
+                    onClick={handleAddTag}
+                  >
+                    {" "}
+                    +
+                  </button>
+                </div>
+              </div>
               <button
                 onClick={postQuestionBackend}
                 className="bg-[#144272] hover:bg-[#2C74B3] text-white  py-2 px-4 rounded-2xl"
@@ -172,6 +228,7 @@ const TopQuestions = () => {
       }
       {
         <Select
+          className="rounded-2xl"
           options={options}
           isSearchable={false}
           isClearable={false}
@@ -189,7 +246,7 @@ const TopQuestions = () => {
           to={`/question/${question.id}`}
           className="w-full bg-opacity-50 bg-white"
         >
-          <div className="border-gray-200 shadow-md border flex flex-row gap-8 rounded-lg p-4 mb-3 relative w-full">
+          <div className="border-gray-200 shadow-md border flex flex-row gap-8 rounded-lg p-4 mb-3 mt-8 relative w-full">
             <div className="flex flex-col items-end  gap-4 justify-center  mr-2  w-[1rem]">
               <button
                 className="text-gray-600 hover:text-gray-800 flex  flex-row focus:outline-none focus:text-gray-800"
@@ -217,7 +274,7 @@ const TopQuestions = () => {
                 </span>
               </button>
             </div>
-            <div className="flex flex-col gap-3 mb-2">
+            <div className="flex flex-col gap-3 mb-2 w-full">
               <div className="items-start justify-start text-start">
                 <div className="flex flex-row">
                   <h2 className="text-lg font-medium text-[#2C74B3] text-bold mr-2">
@@ -235,6 +292,19 @@ const TopQuestions = () => {
                 </div>
                 <div className="text-gray-700 mb-2">{question.description}</div>
               </div>
+              <div className="text-gray-600 inline-flex w-full items-start justify-start text-[0.85rem] space-x-2">
+                {question.tag != null &&
+                  question.tag.length > 0 &&
+                  question.tag.map((tag) => (
+                    <div
+                      key={tag}
+                      className="flex rounded-lg p-[0.35rem] px-2 h-fit w-fit text-[#215e93] bg-[#c8dff5]"
+                    >
+                      {tag}
+                    </div>
+                  ))}
+              </div>
+
               <div className="text-gray-600 text-end items-end justify-end text-xs absolute bottom-3 right-5">
                 {question.email} • Posted on {formatedDate(question.created_at)}
               </div>

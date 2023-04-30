@@ -25,13 +25,11 @@ exports.createIndex = async (req, res) => {
 };
 
 exports.addToIndex = async (indexDoc) => {
-  console.log("Adding index");
   const doc = {
     index: "myindex",
     id: indexDoc["id"],
     body: indexDoc,
   };
-  console.log("TO be indexed: ", indexDoc);
   esClient.index(doc, (err, res) => {
     if (err) {
       console.log("ERROR: ", err);
