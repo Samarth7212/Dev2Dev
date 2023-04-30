@@ -1,14 +1,13 @@
-import React, { useState, useEffect, lazy } from "react";
-import { authCheck, config } from "../AuthChecker";
-import { getMyQuestionsUrl, getQuestionsUrl } from "../constants/urls";
 import Axios from "axios";
-import Select from "react-select";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
-import arrrowUp from "../assets/up-arrow.png";
-import arrrowDown from "../assets/down-arrow.png";
-import QuestionPageSwitcher from "./QuestionPageSwitcher";
+import Select from "react-select";
 import { toast } from "react-toastify";
+import { authCheck } from "../AuthChecker";
+import arrrowDown from "../assets/down-arrow.png";
+import arrrowUp from "../assets/up-arrow.png";
+import { getMyQuestionsUrl, getQuestionsUrl } from "../constants/urls";
+import QuestionPageSwitcher from "./QuestionPageSwitcher";
 
 const fetchMyQuestions = async (option, page) => {
   const id = localStorage.getItem("userID");
@@ -104,7 +103,7 @@ const MyQuestions = () => {
   return (
     <div className="flex flex-col mx-36 justify-center items-center  bg-cover ">
       <div className="justify-center items-center w-2/5 flex mt-5 ">
-        {postQuestion == false && (
+        {postQuestion === false && (
           <button
             onClick={handleOnClick}
             className="bg-[#0A2647] hover:bg-[#2C74B3] text-white font-bold  w-full py-2 px-4 rounded-2xl mb-4 my-3"

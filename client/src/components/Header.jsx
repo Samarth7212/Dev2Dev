@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import Logo from "../assets/logo_bg.png";
-import Cookies from "universal-cookie";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Logo from "../assets/logo_bg.png";
 
 import { authCheck, logOut } from "../AuthChecker";
-import { profileUrl } from "../constants/urls";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -1,24 +1,24 @@
-import Header from "./Header";
-import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { searchURL } from "../constants/urls";
-import arrrowUp from "../assets/up-arrow.png";
+import { Link, useParams } from "react-router-dom";
 import arrrowDown from "../assets/down-arrow.png";
+import arrrowUp from "../assets/up-arrow.png";
+import { searchURL } from "../constants/urls";
+import Header from "./Header";
 
-const fetchQuestions = async (query) => {
-  try {
-    let response = await fetch(searchURL + query);
-    console.log(searchURL + query);
-    const data = await response.json();
-    // await setQuestions(data);
-    console.log("Data: ", data);
-    console.log("On query: ", query);
-    // console.log("Questions: ", questions);
-    return data["hits"];
-  } catch (error) {
-    console.log(error);
-  }
-};
+// const fetchQuestions = async (query) => {
+//   try {
+//     let response = await fetch(searchURL + query);
+//     console.log(searchURL + query);
+//     const data = await response.json();
+//     // await setQuestions(data);
+//     console.log("Data: ", data);
+//     console.log("On query: ", query);
+//     // console.log("Questions: ", questions);
+//     return data["hits"];
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const SearchPage = (props) => {
   const { query } = useParams();

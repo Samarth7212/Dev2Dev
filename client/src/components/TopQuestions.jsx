@@ -1,14 +1,13 @@
-import React, { useState, useEffect, lazy } from "react";
-import { authCheck, config } from "../AuthChecker";
-import { getQuestionsUrl } from "../constants/urls";
 import Axios from "axios";
-import Select from "react-select";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Cookies from "universal-cookie";
-import arrrowUp from "../assets/up-arrow.png";
-import arrrowDown from "../assets/down-arrow.png";
-import QuestionPageSwitcher from "./QuestionPageSwitcher";
+import Select from "react-select";
 import { toast } from "react-toastify";
+import { authCheck } from "../AuthChecker";
+import arrrowDown from "../assets/down-arrow.png";
+import arrrowUp from "../assets/up-arrow.png";
+import { getQuestionsUrl } from "../constants/urls";
+import QuestionPageSwitcher from "./QuestionPageSwitcher";
 
 const fetchTopQuestions = async (option, page) => {
   let response = await fetch(
@@ -91,8 +90,7 @@ const TopQuestions = () => {
       //setPostQuestion(false);
       toast.success("Question posted successfully");
 
-      setTitle("");
-      setDescription("");
+      setPostQuestion(false);
     });
   }
 

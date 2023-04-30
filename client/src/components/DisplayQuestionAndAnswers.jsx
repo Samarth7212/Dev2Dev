@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
+import { useHistory, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { authCheck } from "../AuthChecker";
-import FaBeer, { Fa500Px, FaTrash } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+import arrrowDown from "../assets/down-arrow.png";
+import arrrowUp from "../assets/up-arrow.png";
 import {
-  getQuestionsUrl,
   answerUrl,
+  deleteMyQuestion,
+  getQuestionsUrl,
   voteAnswerUrl,
   voteQuestionUrl,
-  deleteMyQuestion,
 } from "../constants/urls";
-import formattedDate from "../utils/dateFormattor";
-import Axios from "axios";
-import arrrowUp from "../assets/up-arrow.png";
-import arrrowDown from "../assets/down-arrow.png";
-import { toast, ToastContainer } from "react-toastify";
 
 const fetchQuestionById = async (id) => {
   let response = await fetch(getQuestionsUrl + "/" + id);
@@ -36,10 +34,10 @@ const DisplayQuestionAndAnswers = (props) => {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
   const [addAnswerVariable, setAddAnswerVariable] = useState("");
-  const jwt_token = localStorage.getItem("jwt_authorization");
+//   const jwt_token = localStorage.getItem("jwt_authorization");
   const userID = localStorage.getItem("userID");
   const [isMyQuestion, updateIsMyQuestion] = useState(
-    userID == question["owner"]
+    userID === question["owner"]
   );
   const history = useHistory();
 
@@ -55,7 +53,7 @@ const DisplayQuestionAndAnswers = (props) => {
     fetchAnswersByQuestionId(id).then((data) => setAnswers(data));
     fetchQuestionById(id).then((data) => {
       setQuestion(data);
-      updateIsMyQuestion(data["owner"] == userID);
+      updateIsMyQuestion(data["owner"] === userID);
     });
   }, []);
 
@@ -138,7 +136,7 @@ const DisplayQuestionAndAnswers = (props) => {
         Authorization: "Bearer " + localStorage.getItem("jwt_authorization"),
       },
     });
-    const data = await res.json();
+    await res.json();
     history.goBack();
   };
 

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { signupUrl } from "../constants/urls";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignupForm = () => {
@@ -11,8 +11,8 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [dpUrl, setDpUrl] = useState("-");
-  const [reputation, setReputation] = useState("User");
+//   const [dpUrl, setDpUrl] = useState("-");
+//   const [reputation, setReputation] = useState("User");
   const history = useHistory();
 
   const handleSubmit = async (e) => {

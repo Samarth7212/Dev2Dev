@@ -1,19 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginUrl } from "../constants/urls";
-
-import Cookies from "universal-cookie";
-import jwt from "jwt-decode";
-
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setStatus] = useState(false);
+//   const [isLoggedIn, setStatus] = useState(false);
   const history = useHistory();
-  const cookies = new Cookies();
+//   const cookies = new Cookies();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

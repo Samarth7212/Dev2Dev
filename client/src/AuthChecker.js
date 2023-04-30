@@ -1,11 +1,5 @@
-import Cookies from "universal-cookie";
-import { logoutUrl } from "./constants/urls";
-import { useHistory } from "react-router-dom";
-
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const cookies = new Cookies();
 
 // const authCheck = async () => {
 const authCheck = () => {

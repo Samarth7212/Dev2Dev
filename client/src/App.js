@@ -1,18 +1,16 @@
 // import logo from "./logo.svg";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import TopQuestions from "./components/TopQuestions";
-import { useState } from "react";
 // import { authCheck, logOut } from "./AuthChecker";
-import SignupForm from "./components/SignupForm";
-import LoginForm from "./components/LoginForm";
-import DisplayQuestionAndAnswers from "./components/DisplayQuestionAndAnswers";
-import bgimage from "../src/assets/background.jpg";
+import { ToastContainer } from "react-toastify";
 import bgimage2 from "../src/assets/bgop2.jpeg";
-import { ToastContainer, toast } from "react-toastify";
-import SearchPage from "./components/SearchPage";
+import DisplayQuestionAndAnswers from "./components/DisplayQuestionAndAnswers";
+import LoginForm from "./components/LoginForm";
 import MyQuestions from "./components/MyQuestions";
+import SearchPage from "./components/SearchPage";
+import SignupForm from "./components/SignupForm";
 
 function App() {
   //   const [isLogin, setType] = useState(authCheck());

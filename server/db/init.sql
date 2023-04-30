@@ -23,7 +23,8 @@ CREATE TABLE Question (
     upvotes int,
     downvotes int,
     created_at timestamp,
-    status statusstates
+    status statusstates,
+    tag varchar array
 );
 
 CREATE TABLE QuestionComponents (
