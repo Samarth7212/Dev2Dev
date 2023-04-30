@@ -53,7 +53,7 @@ function App() {
             <Header />
             <MyQuestions />
           </Route>
-          <Route path="/tag/:tag">
+          <Route path="/tag">
             <Header />
             <Tags />
           </Route>
