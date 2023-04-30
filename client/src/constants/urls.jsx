@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:8000";
+export const baseUrl = process.env.REACT_APP_API_URL;
 export const getQuestionsUrl = baseUrl + "/questions";
 export const getMyQuestionsUrl = baseUrl + "/questions/my_questions";
 export const deleteMyQuestion = baseUrl + "/questions";
