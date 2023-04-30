@@ -11,6 +11,7 @@ import LoginForm from "./components/LoginForm";
 import MyQuestions from "./components/MyQuestions";
 import SearchPage from "./components/SearchPage";
 import SignupForm from "./components/SignupForm";
+import Tags from "./components/TagsComponent";
 
 function App() {
   //   const [isLogin, setType] = useState(authCheck());
@@ -51,6 +52,10 @@ function App() {
           <Route path="/questions/my_questions/:id">
             <Header />
             <MyQuestions />
+          </Route>
+          <Route path="/tag/:tag">
+            <Header />
+            <Tags />
           </Route>
         </Switch>
       </div>

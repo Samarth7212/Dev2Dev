@@ -10,3 +10,4 @@ export const answerUrl = baseUrl + "/answers";
 export const searchURL = baseUrl + "/search/?q=";
 export const voteQuestionUrl = baseUrl + "/votes/question/";
 export const voteAnswerUrl = baseUrl + "/votes/answer/";
+export const getTagListUrl = baseUrl + "/tags";

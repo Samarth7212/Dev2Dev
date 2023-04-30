@@ -67,3 +67,23 @@ exports.getUniqueTags = async (req, res) => {
     });
   }
 };
+
+exports.getQuestionsByTag = async (req, res) => {
+  // join and get owner email
+
+  const query =
+    "SELECT Question.*, Users.email FROM Question inner join Users on Question.owner=Users.id WHERE $1 = ANY(tag)";
+  const values = [req.params.tag];
+
+  try {
+    let data = await client.query(query, values);
+
+    res.status(200).json({
+      data: data.rows,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error retrieving questions by tag",
+    });
+  }
+};
