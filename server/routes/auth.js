@@ -1,13 +1,13 @@
 let express = require("express");
 const {
-	login,
-	signup,
-	logout,
-	profile,
+  login,
+  signup,
+  logout,
+  profile,
 } = require("../controllers/auth_controller");
 const {
-	validateUserData,
-	isAuthenticated,
+  validateUserData,
+  isAuthenticated,
 } = require("../middlewares/user_verification");
 
 let router = express.Router();

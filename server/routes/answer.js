@@ -1,10 +1,10 @@
 let express = require("express");
 const { isAuthenticated } = require("../middlewares/user_verification");
 const {
-	retrieveAnswerForQuestion,
-	createAnswer,
-	updateAnswer,
-	deleteAnswer,
+  retrieveAnswerForQuestion,
+  createAnswer,
+  updateAnswer,
+  deleteAnswer,
 } = require("../controllers/answer_controller");
 
 let router = express.Router();

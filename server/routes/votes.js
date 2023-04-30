@@ -1,6 +1,11 @@
 let express = require("express");
 const { isAuthenticated } = require("../middlewares/user_verification");
-const { CreateVoteQuestions, UpdateVoteQuestions, CreateVoteAnswers, UpdateVoteAnswers } = require("../controllers/vote_controller");
+const {
+  CreateVoteQuestions,
+  UpdateVoteQuestions,
+  CreateVoteAnswers,
+  UpdateVoteAnswers,
+} = require("../controllers/vote_controller");
 
 let router = express.Router();
 
@@ -17,6 +22,5 @@ router.post("/answer/:id", isAuthenticated, CreateVoteAnswers);
 // Update the vote for a answer
 // TODO: Think about the logic to update the vote
 // router.put("/answer/:id", isAuthenticated, UpdateVoteAnswers);
-
 
 module.exports = router;

@@ -8,6 +8,7 @@ import Cookies from "universal-cookie";
 import arrrowUp from "../assets/up-arrow.png";
 import arrrowDown from "../assets/down-arrow.png";
 import QuestionPageSwitcher from "./QuestionPageSwitcher";
+import { toast } from "react-toastify";
 
 const fetchMyQuestions = async (option, page) => {
   const id = localStorage.getItem("userID");
@@ -68,7 +69,7 @@ const MyQuestions = () => {
 
   function handleOnClick() {
     if (!authCheck()) {
-      alert("You need to be logged in to post a question");
+      toast.warn("You need to be logged in to post a question");
     } else {
       setPostQuestion(true);
     }
@@ -96,7 +97,7 @@ const MyQuestions = () => {
         setQuestions(data["questions"])
       );
       //setPostQuestion(false);
-      alert("Question posted successfully");
+      toast.success("Question posted successfully");
     });
   }
 

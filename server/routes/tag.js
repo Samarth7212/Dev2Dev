@@ -1,9 +1,9 @@
 let express = require("express");
 const { isAuthenticated } = require("../middlewares/user_verification");
 const {
-	retrieveTagByQuestionId,
-	createTagforQuestionId,
-	deleteTag,
+  retrieveTagByQuestionId,
+  createTagforQuestionId,
+  deleteTag,
 } = require("../controllers/tag_controller");
 
 let router = express.Router();

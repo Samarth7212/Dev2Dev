@@ -30,8 +30,8 @@ exports.retrieveQuestions = async (req, res) => {
       break;
 
     case "most_ans":
-      query = `select q.*, concat(u.first_name, ' ', u.last_name) as name, u.email, COALESCE(COUNT(ans.id), 0) as ans_count from Question q join Users u on q.owner = u.id 
-          LEFT JOIN Answer ans ON ans.question_id=q.id 
+      query = `select q.*, concat(u.first_name, ' ', u.last_name) as name, u.email, COALESCE(COUNT(ans.id), 0) as ans_count from Question q join Users u on q.owner = u.id
+          LEFT JOIN Answer ans ON ans.question_id=q.id
           GROUP BY q.id, u.first_name, u.last_name, u.email
           ORDER BY ans_count DESC LIMIT $1 OFFSET $2 `;
       break;
@@ -229,9 +229,12 @@ exports.updateQuestion = async (req, res) => {
 
 exports.deleteQuestion = async (req, res) => {
   let query = "delete from Question where id = $1 and owner = $2 returning *";
+  let query2 = "delete from QuestionVotes where question_id = $1 returning *";
   let values = [parseInt(req.params.id), req.user.id];
+  let values2 = [parseInt(req.params.id)];
 
   try {
+    const data2 = await client.query(query2, values2);
     const data = await client.query(query, values);
     if (data.rows.length === 0) {
       return res.status(404).json({

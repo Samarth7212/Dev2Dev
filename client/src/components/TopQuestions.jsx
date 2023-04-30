@@ -8,9 +8,12 @@ import Cookies from "universal-cookie";
 import arrrowUp from "../assets/up-arrow.png";
 import arrrowDown from "../assets/down-arrow.png";
 import QuestionPageSwitcher from "./QuestionPageSwitcher";
+import { toast } from "react-toastify";
 
 const fetchTopQuestions = async (option, page) => {
-  let response = await fetch(getQuestionsUrl + `?page=${page}&` + `sort=${option}`);
+  let response = await fetch(
+    getQuestionsUrl + `?page=${page}&` + `sort=${option}`
+  );
   const data = await response.json();
   return data["data"];
 };
@@ -34,22 +37,18 @@ const TopQuestions = () => {
   const [selectedOption, setSelectedOption] = useState(defaultValue);
 
   useEffect(() => {
-    fetchTopQuestions(selectedOption["value"], currentPage).then(
-      (data) => {
-        setQuestions(data["questions"]);
-        setTotalPages(data["pages"]);
-      }
-    );
+    fetchTopQuestions(selectedOption["value"], currentPage).then((data) => {
+      setQuestions(data["questions"]);
+      setTotalPages(data["pages"]);
+    });
   }, []);
 
   const onPageChange = async (newPage) => {
     setCurrentPage(newPage);
-    fetchTopQuestions(selectedOption["value"], newPage).then(
-      (data) => {
-        setQuestions(data["questions"]);
-        setTotalPages(data["pages"]);
-      }
-    );
+    fetchTopQuestions(selectedOption["value"], newPage).then((data) => {
+      setQuestions(data["questions"]);
+      setTotalPages(data["pages"]);
+    });
   };
 
   function formatedDate(createdAt) {
@@ -62,7 +61,7 @@ const TopQuestions = () => {
 
   function handleOnClick() {
     if (!authCheck()) {
-      alert("You need to be logged in to post a question");
+      toast.warn("You need to be logged in to post a question");
     } else {
       setPostQuestion(true);
     }
@@ -90,14 +89,17 @@ const TopQuestions = () => {
         setQuestions(data["questions"])
       );
       //setPostQuestion(false);
-      alert("Question posted successfully");
+      toast.success("Question posted successfully");
+
+      setTitle("");
+      setDescription("");
     });
   }
 
   return (
     <div className="flex flex-col mx-36 justify-center items-center  bg-cover ">
       <div className="justify-center items-center w-2/5 flex mt-5 ">
-        {postQuestion == false && (
+        {postQuestion === false && (
           <button
             onClick={handleOnClick}
             className="bg-[#0A2647] hover:bg-[#2C74B3] text-white font-bold  w-full py-2 px-4 rounded-2xl mb-4 my-3"
@@ -176,8 +178,8 @@ const TopQuestions = () => {
           value={selectedOption}
           onChange={(opt) => {
             setSelectedOption(opt);
-            fetchTopQuestions(opt["value"], currentPage).then(
-              (data) => setQuestions(data["questions"])
+            fetchTopQuestions(opt["value"], currentPage).then((data) =>
+              setQuestions(data["questions"])
             );
           }}
         />

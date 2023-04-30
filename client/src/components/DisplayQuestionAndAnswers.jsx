@@ -61,7 +61,7 @@ const DisplayQuestionAndAnswers = (props) => {
 
   const addAnswer = async () => {
     if (!authCheck()) {
-      alert("Please Login to answer");
+      toast.warn("Please Login to answer");
       return;
     }
 
@@ -87,7 +87,7 @@ const DisplayQuestionAndAnswers = (props) => {
       console.log(response);
       setAddAnswerVariable("");
       fetchAnswersByQuestionId(id).then((data) => setAnswers(data));
-      alert("Answer Added Succesfully");
+      toast.success("Answer Added Succesfully");
     });
   };
 
@@ -139,7 +139,7 @@ const DisplayQuestionAndAnswers = (props) => {
       },
     });
     const data = await res.json();
-    history.push("/questions/my_questions/1");
+    history.goBack();
   };
 
   return (
