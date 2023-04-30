@@ -9,10 +9,10 @@ const configDev = {
 };
 
 const configProd = {
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
 
 if (process.env.NODE_ENV === "production") {
