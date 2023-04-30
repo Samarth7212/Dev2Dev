@@ -51,3 +51,19 @@ exports.deleteTag = async (req, res) => {
     });
   }
 };
+
+exports.getUniqueTags = async (req, res) => {
+  const query = "SELECT DISTINCT unnest(tag) AS tag FROM Question";
+  try {
+    let data = await client.query(query);
+    const simpleTagsArray = data.rows.map((obj) => obj.tag);
+
+    res.status(200).json({
+      data: simpleTagsArray,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error retrieving tags",
+    });
+  }
+};

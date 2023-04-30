@@ -126,7 +126,7 @@ exports.retrieveQuestionById = async (req, res) => {
 
 exports.createQuestion = async (req, res) => {
   let query =
-    "insert into Question (title, description, owner, upvotes, downvotes, created_at, status) values ($1, $2, $3, $4, $5, $6, $7) returning *";
+    "insert into Question (title, description, owner, upvotes, downvotes, created_at, status, tag) values ($1, $2, $3, $4, $5, $6, $7, $8) returning *";
   const date = new Date();
   let values = [
     req.body.title,
@@ -136,6 +136,7 @@ exports.createQuestion = async (req, res) => {
     0,
     date,
     "OPEN",
+    req.body.tag,
   ];
 
   let indexDoc = {};
