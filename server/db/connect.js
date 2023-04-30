@@ -8,6 +8,17 @@ const configDev = {
   database: process.env.POSTGRES_DB,
 };
 
+const configProd = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+};
+
+if (process.env.NODE_ENV === "production") {
+  configDev = configProd;
+}
+
 const client = new Client(configDev);
 
 client
