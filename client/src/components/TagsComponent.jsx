@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getTagListUrl } from "../constants/urls";
 import arrrowDown from "../assets/down-arrow.png";
 import arrrowUp from "../assets/up-arrow.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const fetchTagList = async () => {
   let response = await fetch(getTagListUrl);
@@ -11,12 +11,17 @@ const fetchTagList = async () => {
 };
 
 const fetchQuestionByTag = async (tag) => {
+  console.log("tag", tag);
   let response = await fetch(getTagListUrl + `/${tag}`);
   const data = await response.json();
+
+  console.log(data["data"]);
   return data["data"];
 };
 
 const Tags = () => {
+  const { tagName } = useParams();
+
   const [tagList, setTagList] = useState([]);
 
   const [questions, setQuestions] = useState([]);
@@ -33,7 +38,11 @@ const Tags = () => {
     fetchTagList().then((data) => {
       setTagList(data);
     });
-  }, []);
+
+    fetchQuestionByTag(tagName).then((data) => {
+      setQuestions(data);
+    });
+  }, [tagName]);
 
   return (
     <div className="flex flex-col mx-36 justify-center items-center  bg-cover ">
@@ -42,17 +51,12 @@ const Tags = () => {
         {tagList != null &&
           tagList.length > 0 &&
           tagList.map((tag) => (
-            <div
-              key={tag}
+            <Link
+              to={`/tag/${tag}`}
               className="flex rounded-lg p-[0.35rem] px-2 h-fit w-fit text-[#215e93] bg-[#c8dff5]"
-              onClick={() => {
-                fetchQuestionByTag(tag).then((data) => {
-                  setQuestions(data);
-                });
-              }}
             >
               {tag}
-            </div>
+            </Link>
           ))}
       </div>
 

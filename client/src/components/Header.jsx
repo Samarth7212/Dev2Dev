@@ -119,7 +119,7 @@ const Header = () => {
               )}
             </li>
             <li className="mr-4">
-              <a className="hover:text-blue-500" href="/tag">
+              <a className="hover:text-blue-500" href="/tag/null">
                 Tags
               </a>
             </li>
