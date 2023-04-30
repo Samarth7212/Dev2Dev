@@ -1,5 +1,6 @@
 const client = require("../db/connect");
 const esClient = require("../db/elastic_connect");
+const { notifyOwner } = require("../services/notify-owner");
 const { addToIndex, updateToIndex } = require("./index_controller");
 
 exports.retrieveAnswerForQuestion = async (req, res) => {
@@ -42,7 +43,6 @@ exports.createAnswer = async (req, res) => {
         indexData["_source"]["answers"] != null
           ? indexData["_source"]["answers"] + " : " + req.body.description
           : req.body.description;
-      console.log("New anser: ", answer);
       const indexDoc = {
         id: parseInt(req.body.question),
         description: req.body.description,
@@ -58,8 +58,9 @@ exports.createAnswer = async (req, res) => {
         answers: answer,
       };
       updateToIndex(indexDoc);
-      console.log("Updating index with this: ", indexDoc);
     } catch (error) {}
+
+    await notifyOwner(parseInt(req.body.question), req.body.description);
 
     return res.json({ data: { answer: { ...data.rows[0] } } });
   } catch (err) {

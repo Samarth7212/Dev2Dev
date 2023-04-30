@@ -11,8 +11,8 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-//   const [dpUrl, setDpUrl] = useState("-");
-//   const [reputation, setReputation] = useState("User");
+  //   const [dpUrl, setDpUrl] = useState("-");
+  //   const [reputation, setReputation] = useState("User");
   const history = useHistory();
 
   const handleSubmit = async (e) => {

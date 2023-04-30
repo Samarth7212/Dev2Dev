@@ -34,7 +34,7 @@ const DisplayQuestionAndAnswers = (props) => {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
   const [addAnswerVariable, setAddAnswerVariable] = useState("");
-//   const jwt_token = localStorage.getItem("jwt_authorization");
+  //   const jwt_token = localStorage.getItem("jwt_authorization");
   const userID = localStorage.getItem("userID");
   const [isMyQuestion, updateIsMyQuestion] = useState(
     userID === question["owner"]

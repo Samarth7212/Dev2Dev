@@ -7,9 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-//   const [isLoggedIn, setStatus] = useState(false);
+  //   const [isLoggedIn, setStatus] = useState(false);
   const history = useHistory();
-//   const cookies = new Cookies();
+  //   const cookies = new Cookies();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
